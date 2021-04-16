@@ -1,14 +1,14 @@
 package com.comsats.population_mechanics;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.comsats.population_mechanics.databinding.ActivityHomeBinding;
 
@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editor=MainActivity.preferences.edit();
             editor.putBoolean("loginStatus",false);
+            editor.putBoolean("new",false);
             editor.commit();
 
             intent=new Intent(HomeActivity.this,MainActivity.class);

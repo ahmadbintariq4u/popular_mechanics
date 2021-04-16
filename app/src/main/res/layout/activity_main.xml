@@ -9,8 +9,10 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <View
@@ -20,7 +22,7 @@
             android:background="?attr/colorPrimary" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/labelPopular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -28,14 +30,19 @@
             android:fontFamily="@font/carter_one"
             android:text="Popular\nMechanics"
             android:textColor="?attr/colorPrimary"
-            android:textSize="30sp" />
+            android:textSize="40sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -43,11 +50,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo"
+            android:gravity="center"
             android:text="Sign in to Continue"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -60,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:drawableRight="@drawable/line_yellow"
             android:ems="10"
             android:hint="Enter Username"
             android:inputType="textPersonName" />
@@ -78,6 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:drawableRight="@drawable/line_yellow"
             android:ems="10"
             android:hint="Enter Password"
             android:inputType="textPersonName" />
@@ -87,8 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Sign in"
             android:onClick="login"
-            android:textColor="@color/white" />
+            android:text="Sign in"
+            android:textColor="@color/cardview_light_background" />
     </LinearLayout>
 </LinearLayout>

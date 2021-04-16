@@ -1,21 +1,19 @@
 package com.comsats.population_mechanics;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.comsats.population_mechanics.databinding.ActivityChangeLoginInfoBinding;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.github.florent37.viewanimator.ViewAnimator;
 
 public class ChangeLoginInfo extends AppCompatActivity {
 
@@ -37,9 +35,19 @@ public class ChangeLoginInfo extends AppCompatActivity {
         password = MainActivity.preferences.getString("password", "admin");
         binding.username.setText(username);
 
+        ViewAnimator
+                .animate(binding.label)
+                .translationY(-1000, 0)
+                .alpha(0,1)
+                .start();
+
+        YoYo.with(Techniques.Wobble)
+                .duration(3000)
+                .repeat(YoYo.INFINITE)
+                .playOn(binding.label);
+
 
     }
-
 
     boolean oldPasswordStatus = false;
     boolean newPasswordStatus = false;
@@ -116,9 +124,12 @@ public class ChangeLoginInfo extends AppCompatActivity {
                     editor.putString("username", binding.username.getText().toString());
                     editor.putString("password", binding.confirmPassword.getText().toString());
                     editor.putBoolean("loginStatus",false);
+                    editor.putBoolean("new",false);
                     editor.commit();
 
                     makeToast("Password Changed Successfully");
+
+
 
                     Intent intent=new Intent(ChangeLoginInfo.this,MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -126,14 +137,52 @@ public class ChangeLoginInfo extends AppCompatActivity {
                     finish();
                 } else {
                     makeToast("New password not matched");
+
+                    YoYo.with(Techniques.Shake)
+                            .duration(400)
+                            .repeat(1)
+                            .playOn(binding.newPassword);
+
+                    YoYo.with(Techniques.Shake)
+                            .duration(400)
+                            .repeat(1)
+                            .playOn(binding.confirmPassword);
                 }
 
             } else {
                 makeToast("Old Password Incorrect");
+
+                YoYo.with(Techniques.Shake)
+                        .duration(400)
+                        .repeat(1)
+                        .playOn(binding.oldPassword);
             }
 
         } else{
             makeToast("Fields are Empty");
+        }
+
+
+
+        if(binding.oldPassword.getText().toString().equals("")){
+            YoYo.with(Techniques.Shake)
+                    .duration(400)
+                    .repeat(1)
+                    .playOn(binding.oldPassword);
+        }
+
+        if(binding.newPassword.getText().toString().equals("")){
+            YoYo.with(Techniques.Shake)
+                    .duration(400)
+                    .repeat(1)
+                    .playOn(binding.newPassword);
+        }
+
+        if(binding.confirmPassword.getText().toString().equals("")){
+            YoYo.with(Techniques.Shake)
+                    .duration(400)
+                    .repeat(1)
+                    .playOn(binding.confirmPassword);
         }
 
 

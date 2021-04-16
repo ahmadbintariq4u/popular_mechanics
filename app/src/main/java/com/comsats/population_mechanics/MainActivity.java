@@ -1,30 +1,26 @@
 package com.comsats.population_mechanics;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.os.Handler;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.comsats.population_mechanics.databinding.ActivityMainBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Random;
+import com.comsats.population_mechanics.databinding.ActivityMainBinding;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
+import com.github.florent37.viewanimator.ViewAnimator;
+
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     public static SharedPreferences preferences;
+    public Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +38,31 @@ public class MainActivity extends AppCompatActivity {
             startNextActivity();
         }
 
-        //new deme().thread.start();
-    }
+        handler=new Handler();
+        handler.post(runnable);
 
+        //new deme().thread.start();
+
+        if(preferences.getBoolean("new",true)) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this).setTitle("Attention!").setMessage("Default username: admin\nDefault password: admin\n\nWelcome to Popular Mechanics");
+            dialog.setPositiveButton("OK", null);
+            dialog.show();
+        }
+
+        ViewAnimator
+                .animate(binding.labelPopular)
+                .translationY(-1000, 0)
+                .alpha(0,1)
+                .start();
+
+
+
+        YoYo.with(Techniques.Wobble)
+                .duration(3000)
+                .repeat(YoYo.INFINITE)
+                .playOn(binding.labelPopular);
+
+    }
 
     public void login(View view) {
 
@@ -62,18 +80,42 @@ public class MainActivity extends AppCompatActivity {
 
                 } else {
                     makeToast("Your password is Incorrect");
+                    YoYo.with(Techniques.Shake)
+                            .duration(500)
+                            .repeat(1)
+                            .playOn(binding.password);
                 }
 
             } else {
                 makeToast("Your username is Incorrect");
+                YoYo.with(Techniques.Shake)
+                        .duration(500)
+                        .repeat(1)
+                        .playOn(binding.username);
             }
+
+            if(binding.username.getText().toString().equals("")){
+                YoYo.with(Techniques.Shake)
+                        .duration(500)
+                        .repeat(1)
+                        .playOn(binding.username);
+            }
+             if(binding.password.getText().toString().equals("") && !binding.username.getText().toString().equals("")){
+                YoYo.with(Techniques.Shake)
+                        .duration(500)
+                        .repeat(1)
+                        .playOn(binding.password);
+            }
+
+
+
 
     }
 
 
     public void makeToast(String msg) {
         Toast toast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
+        //toast.setGravity(Gravity.TOP | Gravity.CENTER, 0, 0);
         toast.show();
     }
 
@@ -83,6 +125,42 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+    // Task for background comparision
+
+    Runnable runnable=new Runnable() {
+        @Override
+        public void run() {
+
+            if(!binding.username.getText().toString().equals("")){
+                if(binding.username.getText().toString().equals(preferences.getString("username","admin"))){
+                    binding.username.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_green,0);
+                }else{
+                    binding.username.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_red,0);
+                }
+            } else{
+                binding.username.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_yellow,0);
+            }
+
+
+            if(!binding.password.getText().toString().equals("")){
+                if(binding.password.getText().toString().equals(preferences.getString("password","admin"))){
+                    binding.password.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_green,0);
+                }else{
+                    binding.password.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_red,0);
+                }
+            } else{
+                binding.password.setCompoundDrawablesWithIntrinsicBounds(0,0, R.drawable.line_yellow,0);
+            }
+
+
+            handler.postDelayed(this,10);
+        }
+    };
+
+
+
 
 
 //    class deme implements Runnable{
@@ -130,5 +208,10 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 
+
+
+//    Drawable unwrappedDrawable = AppCompatResources.getDrawable(MainActivity.this, R.drawable.line);
+//    Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+//    DrawableCompat.setTint(wrappedDrawable, Color.RED);
 
 }
