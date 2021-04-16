@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Population_Mechanics">
-        <activity android:name=".ChangeLoginInfo" android:parentActivityName=".HomeActivity"></activity>
+        <activity android:name=".RecyclerItem" android:parentActivityName=".HomeActivity"></activity>
+        <activity
+            android:name=".ChangeLoginInfo"
+            android:parentActivityName=".HomeActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

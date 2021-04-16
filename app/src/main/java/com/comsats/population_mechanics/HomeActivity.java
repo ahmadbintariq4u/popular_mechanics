@@ -2,6 +2,7 @@ package com.comsats.population_mechanics;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,16 +10,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.comsats.population_mechanics.databinding.ActivityHomeBinding;
+
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
+
+    ActivityHomeBinding binding;
+    RecyclerViewAdapter adapter;
+    ArrayList<Articles> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding=ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
+        list=Articles.getSampleData();
 
-
-
+        binding.recycler.setLayoutManager(new LinearLayoutManager(this));
+        adapter=new RecyclerViewAdapter(this,list);
+        binding.recycler.setAdapter(adapter);
     }
 
     Intent intent;
@@ -48,7 +60,6 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
 
         return true;
     }

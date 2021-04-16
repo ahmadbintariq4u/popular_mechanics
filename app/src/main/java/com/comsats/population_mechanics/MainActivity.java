@@ -1,18 +1,25 @@
 package com.comsats.population_mechanics;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.comsats.population_mechanics.databinding.ActivityMainBinding;
+
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             startNextActivity();
         }
 
+        //new deme().thread.start();
     }
 
 
@@ -76,6 +84,51 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+
+//    class deme implements Runnable{
+//
+//        Thread thread=new Thread(this);
+//        @Override
+//        public void run() {
+//            for(int a=1; a<123;) {
+//                try {
+//                    thread.sleep(500);
+//                    change();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//        }
+//
+//    }
+//
+//
+//    Random random=new Random();
+////    int[] colors = getResources().getIntArray(R.array.colors_hex_code);
+//
+//
+//    public void change(){
+//
+//        runOnUiThread(new Runnable() {
+//
+//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//            @Override
+//            public void run() {
+//
+//                Window window = getWindow();
+//                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//                window.setStatusBarColor(Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256)));
+//
+////                TextView text = (TextView) findViewById(R.id.textView);
+////                text.setBackgroundColor();
+////                ActionBar actionBar = null;
+////                actionBar.setBackgroundDrawable(new ColorDrawable(Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256))));
+//            }
+//        });
+//
+//    }
 
 
 }

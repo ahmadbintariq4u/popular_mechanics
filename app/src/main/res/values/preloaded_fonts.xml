@@ -2,6 +2,10 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/baloo</item>
+        <item>@font/bungee</item>
+        <item>@font/cairo_extralight</item>
         <item>@font/carter_one</item>
+        <item>@font/fugaz_one</item>
+        <item>@font/passion_one</item>
     </array>
 </resources>
